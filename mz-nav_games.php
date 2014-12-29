@@ -142,6 +142,32 @@ function mz_ng_getStartAndEndDate($week, $year) {
   return $return;
 }
 
+function mz_StartEndDate($date) {
+    list($year, $month, $day) = explode("-", $date);
+
+    // Get the weekday of the given date
+    $wkday = date('l',mktime('0','0','0', $month, $day, $year));
+
+    switch($wkday) {
+        case 'Monday': $numDaysToMon = 7; break;
+        case 'Tuesday': $numDaysToMon = 1; break;
+        case 'Wednesday': $numDaysToMon = 2; break;
+        case 'Thursday': $numDaysToMon = 3; break;
+        case 'Friday': $numDaysToMon = 4; break;
+        case 'Saturday': $numDaysToMon = 5; break;
+        case 'Sunday': $numDaysToMon = 6; break;   
+    }
+
+    // Timestamp of the monday for that week
+    $monday = mktime('0','0','0', $month, $day, $year);
+    $seconds_in_a_day = 86400;
+    $return[0] = date('Y-m-d',$monday);
+    $return[1] = date('Y-m-d',$monday+($seconds_in_a_day*$numDaysToMon));
+    $return[2] = date('Y-m-d',$monday+($seconds_in_a_day*($numDaysToMon)));
+    $return[3] = date('Y-m-d',$monday+($seconds_in_a_day*($numDaysToMon - $numDaysToMon)));
+    return $return;
+}
+
 //May need this for week iteration:
 /*  w e e k n u m b e r  -------------------------------------- //
 mz_ng_weeknumber returns a week number from a given date (>1970, <2030)
