@@ -1,10 +1,10 @@
 === MZ Nav Games ===
-Contributors: mikeill, rtzee
+Contributors: mikeill
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=A95ZEELLHGECE
-Tags: mindbody, schedule, calendar, yoga, soap, pear
+Tags: schedule, calendar
 Requires at least: 3.0.1
 Tested up to: 4.0.1
-Stable tag: 1.2
+Stable tag: 1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,7 +17,7 @@ MZ Nav Games is designed for development of plugins that need to navigate throug
 
 == Installation ==
 
-Steps to install and configure MZ Mindbody API:
+Steps to install and configure MZ Nav Games:
 
 1. Upload the directory, `mz_nav_games` to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
