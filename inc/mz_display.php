@@ -1,15 +1,49 @@
 <?php
 function mZ_nav_games_show_dates( $atts )
 {
-    $return = '';
+    $return = '<br/>';
 	$mz_timeframe = mz_nav_games_schedule_nav($_GET);
     $return .= $mz_timeframe['SchedNav'];
     $return .= '<div style="border:1px solid blue">';
-    $return .= '<br/> This week begins on <b>'. $mz_timeframe['StartDateTime']. '</b>';
-    $return .= ' and ends on <b>'. $mz_timeframe['EndDateTime']. '</b>';
+    $return .= '<br/> This week begins on <b>'. $mz_timeframe['StartDateTime'];
+    $return .= '</b> and ends on <b>'. $mz_timeframe['EndDateTime']. '</b>';
+    foreach (mz_so_week_from_monday($mz_timeframe['StartDateTime']) as $day){
+        $return    .= '<p>'.date('l dS \o\f F Y', strtotime($day)).'</p>';
+    }
     $return .= '</div>';
     return $return;
 }//EOF mZ_games_show_dates
+
+function mz_so_week_from_monday($date) {
+    //from http://stackoverflow.com/questions/186431/calculating-days-of-week-given-a-week-number
+    list($year, $month, $day) = explode("-", $date);
+
+    // Get the weekday of the given date
+    $wkday = date('l',mktime('0','0','0', $month, $day, $year));
+
+    switch($wkday) {
+        case 'Monday': $numDaysToMon = 0; break;
+        case 'Tuesday': $numDaysToMon = 1; break;
+        case 'Wednesday': $numDaysToMon = 2; break;
+        case 'Thursday': $numDaysToMon = 3; break;
+        case 'Friday': $numDaysToMon = 4; break;
+        case 'Saturday': $numDaysToMon = 5; break;
+        case 'Sunday': $numDaysToMon = 6; break;   
+    }
+
+    // Timestamp of the monday for that week
+    $monday = mktime('0','0','0', $month, $day, $year);
+
+    $seconds_in_a_day = 86400;
+
+    // Get date for 7 days from Monday (inclusive)
+    for($i=0; $i<7; $i++)
+    {
+        $dates[$i] = date('Y-m-d',$monday+($seconds_in_a_day*$i));
+    }
+
+    return $dates;
+}
 
 function mz_nav_games_schedule_nav($mz_get_variables)
 {
