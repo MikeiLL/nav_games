@@ -7,9 +7,17 @@ function mZ_nav_games_show_dates( $atts )
     $return .= '<div style="border:1px solid blue">';
     $return .= '<br/> This week begins on <b>'. $mz_timeframe['StartDateTime'];
     $return .= '</b> and ends on <b>'. $mz_timeframe['EndDateTime']. '</b>';
+    $return .= '<style type="text/css">';
+    $return .= 'tr:nth-child(even) {background: #CCC}';
+    $return .= 'tr:nth-child(odd) {background: #FFF}';
+    $return .= 'table {border-spacing: 10px;border-collapse: separate;}';
+    $return .= 'td {padding: 10px;}';
+    $return .= '</style>';
+    $return .= '<table>';
     foreach (mz_so_week_from_monday($mz_timeframe['StartDateTime']) as $day){
-        $return    .= '<p>'.date('l dS \o\f F Y', strtotime($day)).'</p>';
+        $return    .= '<tr><td>'.date('l dS \o\f F Y', strtotime($day)).'</td></tr>';
     }
+    $return .= '</table>';
     $return .= '</div>';
     return $return;
 }//EOF mZ_games_show_dates
