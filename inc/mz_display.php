@@ -46,9 +46,9 @@ function mz_nav_games_schedule_nav($mz_get_variables)
 	$mz_schedule_page = get_permalink();
 	//sanitize input
 	//set week number based on php date or passed parameter from $_GET
-	$mz_date = empty($mz_get_variables['mz_date']) ? date_i18n('Y-m-d') : mz_ng_validate_weeknum($mz_get_variables['mz_date']);
+	$mz_date = empty($mz_get_variables['mz_date']) ? date_i18n('Y-m-d') : mz_ng_validate_date($mz_get_variables['mz_date']);
 	//Navigate through the weeks
-	$mz_start_end_date = mz_getNavDates($mz_date);
+	$mz_start_end_date = mz_ng_getNavDates($mz_date);
 	$mz_nav_weeks_text_prev = __('Previous Week');
 	$mz_nav_weeks_text_current = __('Current Week');
 	$mz_nav_weeks_text_following = __('Following Week');

@@ -40,7 +40,7 @@ function mZ_nav_games_uninstall(){
 
 	add_shortcode('mz-nav-games-show-dates', 'mZ_nav_games_show_dates' );
 
-function mz_getNavDates($date) {
+function mz_ng_getNavDates($date) {
     /*Gets a YYYY-mm-dd date and returns an array of four dates:
         start of requested week
         end of requested week 
@@ -73,7 +73,7 @@ function mz_getNavDates($date) {
     return $return;
 }
 
-function mz_ng_validate_weeknum( $string ) {
+function mz_ng_validate_date( $string ) {
 	if (preg_match('/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/',$string))
 	{
 		return $string;
@@ -84,16 +84,6 @@ function mz_ng_validate_weeknum( $string ) {
 	}
 }
 
-function mz_ng_validate_year( $string ) {
- 	if (preg_match('/^\d{4}$/',$string))
- 	{
-	 	return $string;
- 	}
- 	else
- 	{
- 		return "mz_ng_validate_year error";
- 	}
-}
 
 //Format arrays for display in development
 function mz_ng_pr($data)
