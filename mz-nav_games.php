@@ -36,8 +36,7 @@ function mZ_nav_games_uninstall(){
 	delete_option('mz_nav_games_options');
 }
 
-	foreach ( glob( plugin_dir_path( __FILE__ )."inc/*.php" ) as $file )
-        include_once $file;
+    include_once plugin_dir_path( __FILE__ )."inc/mz_display.php";
 
 	add_shortcode('mz-nav-games-show-dates', 'mZ_nav_games_show_dates' );
 
