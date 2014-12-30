@@ -161,10 +161,10 @@ function mz_StartEndDate($date) {
     // Timestamp of the monday for that week
     $monday = mktime('0','0','0', $month, $day, $year);
     $seconds_in_a_day = 86400;
-    $return[0] = date('Y-m-d',$monday);
-    $return[1] = date('Y-m-d',$monday+($seconds_in_a_day*$numDaysToMon));
-    $return[2] = date('Y-m-d',$monday+($seconds_in_a_day*($numDaysToMon)));
-    $return[3] = date('Y-m-d',$monday+($seconds_in_a_day*($numDaysToMon - $numDaysToMon)));
+    $return[0] = date('Y-m-d',$monday);// requested week
+    $return[1] = date('Y-m-d',$monday+($seconds_in_a_day*$numDaysToMon));// end of requested week
+    $return[2] = date('Y-m-d',$monday+($seconds_in_a_day*($numDaysToMon))); // following week
+    $return[3] = date('Y-m-d',$monday+($seconds_in_a_day*($numDaysToMon - ($numDaysToMon+7)))); // previous week
     return $return;
 }
 
@@ -189,7 +189,7 @@ function mz_ng_weeknumber ($y, $m, $d) {
 }
 
 function mz_ng_validate_weeknum( $string ) {
-	if (preg_match('/^[0-9][0-9]?$|^53$/',$string))
+	if (preg_match('/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/',$string))
 	{
 		return $string;
 	}
