@@ -25,29 +25,16 @@ function mZ_nav_games_show_dates( $atts )
 function mz_so_week_from_monday($date) {
     //from http://stackoverflow.com/questions/186431/calculating-days-of-week-given-a-week-number
     list($year, $month, $day) = explode("-", $date);
-
-    // Get the weekday of the given date
-    $wkday = date('l',mktime('0','0','0', $month, $day, $year));
-
-    switch($wkday) {
-        case 'Monday': $numDaysToMon = 0; break;
-        case 'Tuesday': $numDaysToMon = 1; break;
-        case 'Wednesday': $numDaysToMon = 2; break;
-        case 'Thursday': $numDaysToMon = 3; break;
-        case 'Friday': $numDaysToMon = 4; break;
-        case 'Saturday': $numDaysToMon = 5; break;
-        case 'Sunday': $numDaysToMon = 6; break;   
-    }
-
+    
     // Timestamp of the monday for that week
-    $monday = mktime('0','0','0', $month, $day, $year);
+    $date = mktime('0','0','0', $month, $day, $year);
 
     $seconds_in_a_day = 86400;
 
     // Get date for 7 days from Monday (inclusive)
     for($i=0; $i<7; $i++)
     {
-        $dates[$i] = date('Y-m-d',$monday+($seconds_in_a_day*$i));
+        $dates[$i] = date('Y-m-d',$date+($seconds_in_a_day*$i));
     }
 
     return $dates;
@@ -61,7 +48,7 @@ function mz_nav_games_schedule_nav($mz_get_variables)
 	//set week number based on php date or passed parameter from $_GET
 	$mz_date = empty($mz_get_variables['mz_date']) ? date_i18n('Y-m-d') : mz_ng_validate_weeknum($mz_get_variables['mz_date']);
 	//Navigate through the weeks
-	$mz_start_end_date = mz_StartEndDate($mz_date);
+	$mz_start_end_date = mz_getNavDates($mz_date);
 	$mz_nav_weeks_text_prev = __('Previous Week');
 	$mz_nav_weeks_text_current = __('Current Week');
 	$mz_nav_weeks_text_following = __('Following Week');
