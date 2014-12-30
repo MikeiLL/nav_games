@@ -54,22 +54,27 @@ function mz_ng_getNavDates($date) {
     $wkday = date('l',mktime('0','0','0', $month, $day, $year));
 
     switch($wkday) {
-        case 'Monday': $numDaysToMon = 7; break;
-        case 'Tuesday': $numDaysToMon = 1; break;
-        case 'Wednesday': $numDaysToMon = 2; break;
-        case 'Thursday': $numDaysToMon = 3; break;
-        case 'Friday': $numDaysToMon = 4; break;
-        case 'Saturday': $numDaysToMon = 5; break;
-        case 'Sunday': $numDaysToMon = 6; break;   
+        case 'Monday': $numDaysFromMon = 0; break;
+        case 'Tuesday': $numDaysFromMon = 1; break;
+        case 'Wednesday': $numDaysFromMon = 2; break;
+        case 'Thursday': $numDaysFromMon = 3; break;
+        case 'Friday': $numDaysFromMon = 4; break;
+        case 'Saturday': $numDaysFromMon = 5; break;
+        case 'Sunday': $numDaysFromMon = 6; break;   
     }
 
     // Timestamp of the monday for that week
-    $monday = mktime('0','0','0', $month, $day, $year);
     $seconds_in_a_day = 86400;
-    $return[0] = date('Y-m-d',$monday);// requested week
-    $return[1] = date('Y-m-d',$monday+($seconds_in_a_day*$numDaysToMon));// end of requested week
-    $return[2] = date('Y-m-d',$monday+($seconds_in_a_day*($numDaysToMon))); // following week
-    $return[3] = date('Y-m-d',$monday+($seconds_in_a_day*($numDaysToMon - ($numDaysToMon+7)))); // previous week
+    
+    $monday = mktime('0','0','0', $month, $day-$numDaysFromMon, $year);
+    $today = mktime('0','0','0', $month, $day, $year);
+    $weeksEnd = $today+($seconds_in_a_day*(7 - $numDaysFromMon));
+    $previousWeek = $monday+($seconds_in_a_day*($numDaysFromMon - ($numDaysFromMon+7)));
+    
+    $return[0] = date('Y-m-d',$today);
+    $return[1] = date('Y-m-d',$weeksEnd);
+    $return[2] = date('Y-m-d',$weeksEnd+1); 
+    $return[3] = date('Y-m-d',$previousWeek); 
     return $return;
 }
 
